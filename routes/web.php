@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use GuzzleHttp\Psr7\Request;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,18 +21,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/greating', function () {
-    return 'greating';
+
+Route::middleware('auth.admin')->prefix('admin')->group(function(){
+    Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth.admin.dashboard');
+    Route::get('/products', [ProductController::class, 'index']);
 });
-
-Route::post('/users', [UserController::class, 'store']);
-
-Route::get('/users', [UserController::class, 'index']);
-
-Route::get('/users/{id}', [UserController::class, 'show']);
-
-Route::get('/param/{name?}', function (?string $name = null) {
-    return $name;
-});
-
-Route::match(['get', 'post'], '/users', [UserController::class, 'index']);
