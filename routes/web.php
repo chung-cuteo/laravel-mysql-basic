@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use GuzzleHttp\Psr7\Request;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,18 +21,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/greating', function () {
-    return 'greating';
+Route::get('/home', [HomeController::class, 'index']);
+
+Route::prefix('product')->group(function () {
+    Route::get('/create', [ProductController::class, 'create']);
+    Route::post('/', [ProductController::class, 'store']);
+    Route::get('/', [ProductController::class, 'show']);
+    Route::get('/{id}/edit', [ProductController::class, 'edit']);
+    Route::put('/{id}', [ProductController::class, 'update']);
+    Route::delete('/{id}', [ProductController::class, 'destroy']);
 });
-
-Route::post('/users', [UserController::class, 'store']);
-
-Route::get('/users', [UserController::class, 'index']);
-
-Route::get('/users/{id}', [UserController::class, 'show']);
-
-Route::get('/param/{name?}', function (?string $name = null) {
-    return $name;
-});
-
-Route::match(['get', 'post'], '/users', [UserController::class, 'index']);
