@@ -19,18 +19,3 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/greating', function () {
-    return 'greating';
-});
-
-Route::post('/users', [UserController::class, 'store']);
-
-Route::get('/users', [UserController::class, 'index']);
-
-Route::get('/users/{id}', [UserController::class, 'show']);
-
-Route::get('/param/{name?}', function (?string $name = null) {
-    return $name;
-});
-
-Route::match(['get', 'post'], '/users', [UserController::class, 'index']);
