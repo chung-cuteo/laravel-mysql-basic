@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use GuzzleHttp\Psr7\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [App\Http\Controllers\UserController::class, 'index']);
+Route::get('/', function () {
+    return view('welcome');
+});
 
-Route::get('/{id}', [App\Http\Controllers\UserController::class, 'getOneUser']);
+Route::get('/greating', function () {
+    return 'greating';
+});
+
+Route::post('/users', [UserController::class, 'store']);
+
+Route::get('/users', [UserController::class, 'index']);
+
+Route::get('/users/{id}', [UserController::class, 'show']);
+
+Route::get('/param/{name?}', function (?string $name = null) {
+    return $name;
+});
+
+Route::match(['get', 'post'], '/users', [UserController::class, 'index']);

@@ -2,23 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Phone;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
     public function index()
     {
-        $user= User::with('phone')->where(function ($query) {
-            $query->where('id', 1);
-        })->first();
+        $users= User::all();
 
-        $userFromePhone = Phone::with('user')->where(function ($query) {
-            $query->where('id', 2);
-        })->first();
+        return $users;
+    }
 
-        dd($userFromePhone->user);
+    public function store()
+    {
+        $user = new User();
+        $user->name = 'John Doe';
+        $user->email = 'john@gmail.com';
+        $user->password = Hash::make('12345678');
+        $user->save();
+    }
+
+    public function show($id)
+    {
+        $user = User::find($id);
+
+        return $user;
     }
 }
