@@ -24,15 +24,17 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>
-          <a href="#" class="btn btn-primary">Edit</a>
-          <a href="#" class="btn btn-danger">Delete</a>
-        </td>
-      </tr>
+      @foreach ($posts as $key->$post)
+        <tr>
+          <th scope="row">{{ $key }}</th>
+          <td>{{ $post->title }}</td>
+          <td>{{ $post->title }}</td>
+          <td>
+            <a href="#" class="btn btn-primary">Edit</a>
+            <a href="#" class="btn btn-danger">Delete</a>
+          </td>
+        </tr>
+      @endforeach
     </tbody>
   </table>
 </body>
