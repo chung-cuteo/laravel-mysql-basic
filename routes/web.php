@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use GuzzleHttp\Psr7\Request;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,4 +18,9 @@ use GuzzleHttp\Psr7\Request;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::prefix('posts')->group(function () {
+    Route::get('/create', [PostController::class, 'create'])->name('posts.create');
+    Route::post('/create', [PostController::class, 'store'])->name('posts.store');
 });

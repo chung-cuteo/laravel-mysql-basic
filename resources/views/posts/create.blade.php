@@ -15,14 +15,25 @@
 <body>
   <h1>Create Post</h1>
 
-  <form>
+  @if ($errors->any())
+    <div class="alert alert-danger">
+      <ul>
+        @foreach ($errors->all() as $error)
+          <li>{{ $error }}</li>
+        @endforeach
+      </ul>
+    </div>
+  @endif
+
+  <form action="{{ route('posts.store') }}" method="POST">
+    @csrf
     <div class="mb-3">
       <label for="post-title" class="form-label">Title</label>
-      <input type="text" name="title" class="form-control" id="post-title">
+      <input type="text" name="title" class="form-control" id="post-title" value="{{ old('title') }}">
     </div>
     <div class="mb-3">
       <label for="post-content" class="form-label">Content</label>
-      <input type="text" name="content" class="form-control" id="post-content">
+      <input type="text" name="content" class="form-control" id="post-content" value="{{ old('content') }}">
     </div>
     <div class="mb-3">
       <label for="post-user-id" class="form-label">Content</label>
