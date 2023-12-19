@@ -46,4 +46,8 @@ class User extends Authenticatable
     public function phone(): HasOne {
         return $this->hasOne(Phone::class, 'user_id', 'id');
     }
+
+    public function posts(): HasOne {
+        return $this->hasOne(Post::class, 'user_id', 'id');
+    }
 }
