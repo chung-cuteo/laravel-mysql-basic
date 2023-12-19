@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use GuzzleHttp\Psr7\Request;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,3 +19,6 @@ use GuzzleHttp\Psr7\Request;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::get('/posts', [PostController::class, 'index']);
